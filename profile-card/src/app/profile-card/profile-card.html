@@ -1,0 +1,15 @@
+<div class="profile-card">
+  <img src="assets/profile.jpg" alt="Profile" class="profile-img" />
+  <h2 class="name">{{ name }}</h2>
+  <p class="description" *ngIf="age">Age: {{ age }}</p>
+  <p class="description">{{ description }}</p>
+
+  <h3>Update Profile:</h3>
+  <input class="editable" [(ngModel)]="name" placeholder="Enter a new name" />
+  <input class="editable" [(ngModel)]="age" placeholder="Enter a new age" />
+  <input
+    class="editable"
+    [(ngModel)]="description"
+    placeholder="Enter a new description"
+  />
+</div>
