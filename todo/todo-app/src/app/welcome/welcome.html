@@ -2,3 +2,16 @@
 <div class="container">
   Welcome, {{ name }}! You can manage your todos <a routerLink="/todos">here</a>
 </div>
+<div class="container">
+  Click here to get a customized welcome message
+<button class= "btn btn-success" (click)="getWelcomeMessageWithParam()">Get Welcome Message</button>
+<!-- or -->
+<!-- <input type="text" class="form-control" placeholder="Enter your name" [(ngModel)]="name" /> -->
+<!-- <button class= "btn btn-success mt-2" (click)="getWelcomeMessageWithParam()">Get Welcome Message</button> -->
+</div>
+<br>
+<div>
+  <div *ngIf="errorMessage" class="alert alert-danger"> {{ errorMessage }}</div>
+  <div *ngIf="welcomeMessageFromService" class="alert alert-success"> {{ welcomeMessageFromService }}</div>
+</div>
+
