@@ -1,0 +1,16 @@
+<div class="score-container">
+  <span class="label">score</span>
+  <span class="value">{{ score }}</span>
+</div>
+
+<span class="red-button" (click)="reset()">Reset</span>
+
+<img src="assets/cookie-bg.png"
+ alt="Centered Image"
+ class="centered-image"
+ (click)="increment()"/>
+
+<div class="status-container" [ngSwitch]="getStatus()">
+    <p *ngSwitchCase="'zero'" [ngStyle]="{color: 'orange', background: 'white'}">Game reset. Try again.</p>
+    <p *ngSwitchCase="'positive'" [ngStyle]="{color: 'green', background: 'white'}">Keep Going!</p>
+</div>

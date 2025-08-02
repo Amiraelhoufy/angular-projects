@@ -1,0 +1,72 @@
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.centered-image {
+  display: inline-block;
+  width: 300px;
+  height: auto;
+}
+
+.red-button {
+  position: fixed;
+  bottom: 40px;
+  left: 47%;
+  background-color: #e74c3c; /* bright red */
+  border: 2px solid #c0392b;
+  color: white;
+  font-weight: bold;
+  font-family: sans-serif;
+  padding: 6px 20px;
+  font-size: 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.red-button:hover {
+  background-color: #c0392b; /* darker red on hover */
+}
+
+.status-container{
+  position: fixed;
+  bottom: 100px;
+  left: 50%;
+  transform: translateX(-47%);
+   font-weight: bold;
+  font-family: sans-serif;
+}
+.score-container {
+  position: fixed; /* Stay in place while scrolling */
+  top: 20px;
+  left: 20px;
+  display: inline-flex;
+  align-items: center;
+  background-color: #e0eafc; /* light blue background */
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  padding: 5px 10px;
+  font-family: sans-serif;
+  font-size: 18px;
+}
+
+.label {
+  margin-right: 8px;
+  font-weight: bold;
+  color: #333;
+}
+
+.value {
+  background-color: orange;
+  color: white;
+  padding: 2px 10px;
+  border-radius: 6px;
+  font-weight: bold;
+}
+
+.centered-image:active {
+  transform: translate(-5%, -5%) scale(1.1);
+}
