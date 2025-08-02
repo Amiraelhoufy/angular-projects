@@ -1,0 +1,27 @@
+<div class="container mt-5 d-flex justify-content-center"> 
+  <div class="w-50">
+    <h3>Todo List:</h3>
+    <div class="input-group mb-3">
+      <input
+        type="text"
+        class="form-control"
+        [(ngModel)]="newTask"
+        placeholder="Add a task"
+      />
+      <button (click)="addTask(newTask)" type="button" class="btn btn-primary">
+        Add
+      </button>
+    </div>
+    <ul class="list-group">
+      <p *ngIf="tasks.length === 0">No Tasks for today!</p>
+      <li *ngFor="let task of tasks; let i = index" class="list-group-item">
+        <input
+          class="form-check-input me-1"
+          type="checkbox"
+          (change)="removeTask(i)"
+        />
+        <span> {{ task.title }} </span>
+      </li>
+    </ul>
+  </div>
+</div>
