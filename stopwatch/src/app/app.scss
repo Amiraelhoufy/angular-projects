@@ -1,0 +1,10 @@
+.background {
+  display: flex;
+  justify-content: center;   // centers horizontally
+  align-items: center;       // centers vertically
+  height: 100vh;                // Full viewport height
+  background-image: url('../assets/cloud-bg.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}

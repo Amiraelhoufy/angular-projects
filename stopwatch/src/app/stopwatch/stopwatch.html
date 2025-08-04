@@ -1,0 +1,19 @@
+
+<div class="stopwatch-container">
+  <p class="title">Online Timer & Stopwatch</p>
+
+  <div class="timer">
+    <!-- <span class="time">00</span><span class="colon">:</span> -->
+    <!-- <span class="time">12</span><span class="colon">:</span> -->
+    <!-- <span class="time">16</span> -->
+     <span class="time">{{ elapsedTime | number : "1.1-1"}}</span>
+    
+</div>
+
+<p class="title">Seconds</p>
+
+<div class="controls">
+    <button class="pause" (click)="startStop()"> {{isRunning? 'Stop': 'Start'}}</button>
+    <button class="reset" (click)="reset()" [disabled]="!elapsedTime">Reset</button>
+  </div>
+</div>
