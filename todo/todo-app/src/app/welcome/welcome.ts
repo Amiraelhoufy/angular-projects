@@ -6,7 +6,7 @@ import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-welcome',
-  imports: [RouterModule,CommonModule,FormsModule],
+  imports: [RouterModule, CommonModule, FormsModule],
   templateUrl: './welcome.html',
   styleUrl: './welcome.css',
 })
@@ -29,12 +29,32 @@ export class Welcome {
     this.name = this.route.snapshot.params['name'];
   }
 
-//   ✅ Summary
-// Before (deprecated)
-// .subscribe(success, error, complete)
+  handleSuccessfulResponse(response: any) {
+    this.welcomeMessageFromService = response;
+    // console.log(this.welcomeMessageFromService);
+  }
 
-// After (recommended)
-// .subscribe({ next, error, complete })
+  handleErrorResponse(error: any) {
+    // console.log(error);
+    // console.log(error.error.message);
+    // this.errorMessage= error.error.message;
+
+    if (error.status === 0 && error.error instanceof ProgressEvent) {
+      this.errorMessage =
+        'Unable to connect to the server. Please make sure the backend is running.';
+    } else if (error.status === 404) {
+      this.errorMessage = 'Service not found. Please check the API endpoint.';
+    } else {
+      this.errorMessage = `Unexpected error: ${error.message}`;
+    }
+  }
+
+  //   ✅ Summary
+  // Before (deprecated)
+  // .subscribe(success, error, complete)
+
+  // After (recommended)
+  // .subscribe({ next, error, complete })
 
   public getWelcomeMessage() {
     // console.log(this.welcomeData.executeHelloWorldBeanService());
@@ -42,33 +62,24 @@ export class Welcome {
     this.welcomeMessageFromService = '';
 
     this.welcomeData.executeHelloWorldBeanService().subscribe({
-    next: response => this.handleSuccessfulResponse(response.message),
-    error: error => this.handleErrorResponse(error),
-    complete: () => console.log("Request completed")
-  });
+      next: (response) => this.handleSuccessfulResponse(response.message),
+      error: (error) => this.handleErrorResponse(error),
+      complete: () => console.log('Request completed'),
+    });
 
     // console.log("Last line of getWelcomeMessage()");
   }
 
-  handleSuccessfulResponse(response: any) {
-    this.welcomeMessageFromService = response;
-    // console.log(this.welcomeMessageFromService);
-  }
-  
-  handleErrorResponse(error: any){
-    // console.log(error);
-    // console.log(error.error.message);
-    this.errorMessage= error.error.message;
-  }
+  public getWelcomeMessageWithParam() {
+    this.errorMessage = '';
+    this.welcomeMessageFromService = '';
 
-  public getWelcomeMessageWithParam(){
-    this.welcomeData.executeHelloWorldServiceWithPathParam(this.name).subscribe({
-    next: response => this.handleSuccessfulResponse(response),
-    // error: error => this.handleErrorResponse(error),
-    complete: () => console.log("Request completed")
-  });
+    this.welcomeData
+      .executeHelloWorldServiceWithPathParam(this.name)
+      .subscribe({
+        next: (response) => this.handleSuccessfulResponse(response),
+        error: (error) => this.handleErrorResponse(error),
+        complete: () => console.log('Request completed'),
+      });
   }
-
-
-  
 }

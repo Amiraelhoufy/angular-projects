@@ -1,9 +1,11 @@
 package org.agcodes.restful_web_services.model;
 
 import java.util.Date;
+import java.util.Objects;
 
 public class Todo {
   private long id;
+
   private String username;
   private String description;
   private Date targetDate;
@@ -56,4 +58,22 @@ public class Todo {
   public void setDone(boolean done) {
     isDone = done;
   }
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    Todo todo = (Todo) o;
+    return id == todo.id && isDone == todo.isDone && Objects.equals(username, todo.username)
+        && Objects.equals(description, todo.description) && Objects.equals(
+        targetDate, todo.targetDate);
+  }
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, username, description, targetDate, isDone);
+  }
+
 }

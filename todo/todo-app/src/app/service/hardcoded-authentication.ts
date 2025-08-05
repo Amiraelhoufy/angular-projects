@@ -28,5 +28,9 @@ export class HardcodedAuthentication {
     sessionStorage.removeItem('authenticatedUser');
   }
 
+  getLoggedInUsername(): string | null{
+    return this.isUserLoggedIn()? sessionStorage.getItem('authenticatedUser'): null;
+  }
+
 }
 

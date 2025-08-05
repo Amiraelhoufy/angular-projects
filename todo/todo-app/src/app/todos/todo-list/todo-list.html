@@ -1,9 +1,11 @@
 <div class="container mt-5">
+   <div *ngIf="errorMessage" class="alert alert-danger"> {{ errorMessage }}</div>
+   <div *ngIf="successMessage" class="alert alert-success"> {{ successMessage }}</div>
   <h2 class="mb-4">Your Todos</h2>
   <table class="table table-striped">
     <thead class="table-dark">
       <tr>
-        <th>ID</th>
+        <!-- <th>ID</th> -->
         <th>Description</th>
         <th>Done</th>
         <th>Target Date</th>
@@ -12,11 +14,15 @@
     </thead>
     <tbody>
       <tr *ngFor="let todo of todos">
-        <td>{{ todo.id }}</td>
+        <!-- <td>{{ todo.id }}</td> -->
         <td>{{ todo.description }}</td>
         <td>{{ todo.done ? 'Yes' : 'No' }}</td>
         <td>{{ todo.targetDate | date }}</td>
         <td>
+          
+          <!-- <button class="btn btn-primary btn-sm" [routerLink]="['/todos', todo.id]">Update</button> -->
+          <!-- <button class="btn btn-primary btn-sm" (click)="openModal(todo)">Edit</button> -->
+          <button class="btn btn-primary btn-sm" (click)="updateTodo(todo.id)">Update</button>
           <button class="btn btn-danger btn-sm" (click)="deleteTodo(todo.id)">Delete</button>
         </td>
       </tr>
