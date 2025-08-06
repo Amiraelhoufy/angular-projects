@@ -3,6 +3,8 @@ export const APIConstant = {
     base:'users',
     all:(username: string) => `users/${username}/todos`,
     getById: (username: string, id: number) => `users/${username}/todos/${id}`,
-    deleteTodo: (username: string, id: number) =>`users/${username}/todos/${id}` 
+    deleteTodo: (username: string, id: number) => `users/${username}/todos/${id}`,
+    updateTodo: (username: string, id: number)=> `users/${username}/todos/${id}`,
+    addTodo: (username: string) => `users/${username}/todos`
   }
 };

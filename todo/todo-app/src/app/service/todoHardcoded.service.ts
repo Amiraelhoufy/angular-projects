@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Todo } from './todo.model';
-
+import { Todo } from '../model/todo.model';
 @Injectable({ providedIn: 'root' })
 export class TodosService {
 

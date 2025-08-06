@@ -1,7 +1,7 @@
+import { Todo } from './../../model/todo.model';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { TodoData } from '../../service/data/todo-data';
-import { Todo } from '../todo.model';
 import { HardcodedAuthentication } from '../../service/hardcoded-authentication';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -15,14 +15,15 @@ import { CommonModule } from '@angular/common';
 export class TodoItem implements OnInit {
 
   id !: number; // ! :  to tell TypeScript not to worry as it's assigned in ngOnInit()
-  todo: Todo = {
+  todo: Todo = {  // Dummy values to avoid async loading undefined object
   id: 0,
-   description: '',
-   done: false,
-   targetDate: new Date()
-}; // Dummy values to avoid async loading undefined object
+  description: '',
+  done: false,
+  targetDate: new Date()
+  };
   errorMessage: string= '';
-
+  successMessage : string = '';
+  
   constructor(private todoService: TodoData,
     private route: ActivatedRoute,
     private auth:HardcodedAuthentication
@@ -32,7 +33,10 @@ export class TodoItem implements OnInit {
 
   ngOnInit(): void {
   this.id = Number(this.route.snapshot.params['id']);
-  this.getTodo();
+  if(this.id !== -1){
+    this.todo.id = this.id;
+    this.getTodo();
+  }
   }
 
   getTodo(){
@@ -59,7 +63,44 @@ export class TodoItem implements OnInit {
     }
   }
 
-  updateTodo(){
+  saveTodo(){        
+    this.errorMessage = '';
+    this.successMessage = '';
+    const username = this.auth.getLoggedInUsername();
 
+    if (username) {
+    this.todoService.updateTodo(username,this.todo.id,this.todo).subscribe({
+        next: (response) => {
+          this.todo = response;
+          this.successMessage = 'updated successfully!'
+        },
+        error: (error) => this.handleErrorResponse(error)
+        // complete: () => console.log('Request to TodoService completed')
+    }
+    );
   }
+}
+
+addTodo(){
+    this.errorMessage = '';
+    this.successMessage = '';
+    const username = this.auth.getLoggedInUsername();
+
+    if (username) {
+    this.todoService.addNewTodo(username,this.todo).subscribe({
+        next: (response) => {
+          this.todo = response;
+          this.successMessage = 'Added successfully!'
+        },
+        error: (error) => this.handleErrorResponse(error)
+        // complete: () => console.log('Request to TodoService completed')
+    }
+    );
+  }
+  
+}
+
+isNew(){
+  return this.id === -1? true: false;
+}
 }

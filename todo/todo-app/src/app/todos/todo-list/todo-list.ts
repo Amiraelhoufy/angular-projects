@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Todo } from '../todo.model';
+import { Todo } from '../../model/todo.model';
 import { TodoData } from '../../service/data/todo-data';
 import { HardcodedAuthentication } from '../../service/hardcoded-authentication';
 import { Router } from '@angular/router';
@@ -41,7 +41,7 @@ export class TodoList {
       this.todoService.retrieveAllTodos(username).subscribe({
         next: (response) => (this.todos = response),
         // error: (error) => this.handleErrorResponse(error),
-        complete: () => console.log('Request to TodoService completed'),
+        complete: () => console.log('Request to TodoService completed')
       });
     }
   }
@@ -72,5 +72,9 @@ export class TodoList {
 
   updateTodo(todoid: number){
       this.router.navigate(['todos',todoid]);
+  }
+
+  addTodo(){
+    this.router.navigate(['todos',-1]);
   }
 }

@@ -1,12 +1,18 @@
 <div class="container mt-5">
     <div class="col-md-4">
-
 <h1>Todo Details:</h1>
 <div>
+  <div *ngIf="errorMessage" class="alert alert-danger"> {{ errorMessage }}</div>
+  <div *ngIf="successMessage" class="alert alert-success"> {{ successMessage }}</div>
+</div>
+<div>
 <div class="container">
-    <fieldset class="form-group">
+    <fieldset class="form-group"> 
         <label>Description:</label>
-    <input type="text" [(ngModel)]="todo.description" class="form-control" name="description" required="required" >
+    <input type="text"
+    [(ngModel)]="todo.description" class="form-control" 
+    name="description"
+    required="required" >
     </fieldset>
 
     <fieldset class="form-group"> 
@@ -19,7 +25,9 @@
 </div>
 <div class="text-end justify-content-end">
   <button class="btn btn-outline-success" [routerLink]="'/todos'">Close</button>
-  <button class="btn btn-success" (click)="updateTodo()">Update</button>
+  <button class="btn btn-success" *ngIf="!isNew" [disabled]="!todo.description" (click)="saveTodo()">Update</button>
+  <button class="btn btn-success" *ngIf="isNew" [disabled]="!todo.description" (click)="addTodo()">Add</button>
+    
 </div>
 </div>
 </div>

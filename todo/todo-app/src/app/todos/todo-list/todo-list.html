@@ -1,7 +1,12 @@
 <div class="container mt-5">
    <div *ngIf="errorMessage" class="alert alert-danger"> {{ errorMessage }}</div>
    <div *ngIf="successMessage" class="alert alert-success"> {{ successMessage }}</div>
-  <h2 class="mb-4">Your Todos</h2>
+   <div class="d-flex justify-content-between align-items-center mb-3">
+     <h2 class="mb-0">Your Todos:</h2>
+     <button class="btn btn-success btn-success" (click)="addTodo()">
+        <i class="bi bi-plus-lg"></i> Add Todo
+      </button>
+   </div>
   <table class="table table-striped">
     <thead class="table-dark">
       <tr>

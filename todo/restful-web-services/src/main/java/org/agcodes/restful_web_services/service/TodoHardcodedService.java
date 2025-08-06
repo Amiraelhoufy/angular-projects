@@ -23,7 +23,7 @@ public class TodoHardcodedService {
     return todos;
   }
 
-  public Todo save(Todo todo){
+  public Optional<Todo> save(Todo todo){
     if (todo.getId() == -1 || todo.getId() == 0) {
       todo.setId(++idCounter);
       todos.add(todo);
@@ -31,7 +31,7 @@ public class TodoHardcodedService {
       deleteById(todo.getId());
       todos.add(todo);
     }
-    return todo;
+    return Optional.of(todo);
   }
   public Optional<Todo> findById(long id) {
     return Optional.ofNullable(todos)
