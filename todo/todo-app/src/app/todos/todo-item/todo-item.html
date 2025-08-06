@@ -2,17 +2,25 @@
     <div class="col-md-4">
 <h1>Todo Details:</h1>
 <div>
+  <!-- <div *ngIf="todoForm.dirty && todoForm.invalid" class="alert alert-warning">Enter valid Values!</div> -->
+  <div *ngIf="todoForm.dirty && targetDate.invalid" class="alert alert-warning">Enter valid target date!</div>
+  <div *ngIf="todoForm.dirty && description.invalid" class="alert alert-warning">Enter at least 5 characters in description!</div>
+
   <div *ngIf="errorMessage" class="alert alert-danger"> {{ errorMessage }}</div>
   <div *ngIf="successMessage" class="alert alert-success"> {{ successMessage }}</div>
 </div>
-<div>
-<div class="container">
+<form (ngSubmit)="!todoForm.invalid && saveTodo()" #todoForm="ngForm">
+
+  <div class="container">
     <fieldset class="form-group"> 
         <label>Description:</label>
     <input type="text"
-    [(ngModel)]="todo.description" class="form-control" 
+    [(ngModel)]="todo.description"
+    class="form-control" 
     name="description"
-    required="required" >
+    required="required"
+    minlength="5"
+    #description="ngModel">
     </fieldset>
 
     <fieldset class="form-group"> 
@@ -20,14 +28,20 @@
     <input type="date"
     [ngModel]="todo.targetDate | date:'yyyy-MM-dd'" 
     (ngModelChange)="todo.targetDate = $event"
-    class="form-control" name="targetDate" required="required">
+    class="form-control"
+    name="targetDate"
+    required="required"
+    #targetDate="ngModel">
+     <!-- 
+    [min]="minDate"
+     #targetDate="ngModel" -->
     </fieldset>
 </div>
 <div class="text-end justify-content-end">
   <button class="btn btn-outline-success" [routerLink]="'/todos'">Close</button>
-  <button class="btn btn-success" *ngIf="!isNew" [disabled]="!todo.description" (click)="saveTodo()">Update</button>
-  <button class="btn btn-success" *ngIf="isNew" [disabled]="!todo.description" (click)="addTodo()">Add</button>
-    
+  <button type="submit" class="btn btn-success">
+    <span *ngIf="isNew()">Add</span>
+    <span *ngIf="!isNew()">Update</span>
+  </button>    
 </div>
-</div>
-</div>
+</form>

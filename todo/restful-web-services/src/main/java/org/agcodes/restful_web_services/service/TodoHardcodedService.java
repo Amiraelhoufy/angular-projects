@@ -23,7 +23,8 @@ public class TodoHardcodedService {
     return todos;
   }
 
-  public Optional<Todo> save(Todo todo){
+  public Optional<Todo> save(String username,Todo todo){
+    todo.setUsername(username);
     if (todo.getId() == -1 || todo.getId() == 0) {
       todo.setId(++idCounter);
       todos.add(todo);

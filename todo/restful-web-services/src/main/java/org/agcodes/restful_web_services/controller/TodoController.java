@@ -56,7 +56,7 @@ public class TodoController {
       @PathVariable long todoId,
       @RequestBody Todo todo){
 
-    return todoHardcodedService.save(todo)
+    return todoHardcodedService.save(username,todo)
         .map(updatedTodo -> ResponseEntity.ok(updatedTodo))
         .orElse(ResponseEntity.notFound().build());
   }
@@ -65,7 +65,7 @@ public class TodoController {
   public ResponseEntity<Todo> createTodo(@PathVariable String username,
       @RequestBody Todo todo){
 
-    Optional<Todo> createdTodo = todoHardcodedService.save(todo);
+    Optional<Todo> createdTodo = todoHardcodedService.save(username,todo);
     return createdTodo
         .map(savedTodo -> {
           URI location = ServletUriComponentsBuilder
