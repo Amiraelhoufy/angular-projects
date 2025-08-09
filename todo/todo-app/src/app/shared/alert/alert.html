@@ -1,0 +1,12 @@
+@if (visible) {
+<div class="alert alert-{{ type }} alert-dismissible fade show" role="alert">
+  {{ message }}
+  @if(type==='success'){
+ <button type="button" 
+  class="btn-close" 
+  (click)="close()"
+  aria-label="Close"></button>
+  }
+ 
+</div>
+}

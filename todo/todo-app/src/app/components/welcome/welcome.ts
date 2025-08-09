@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { WelcomeData } from './../service/data/welcome-data';
+import { WelcomeData } from '../../service/data/welcome-data';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';

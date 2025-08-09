@@ -1,14 +1,15 @@
-import { Todo } from './../../model/todo.model';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { TodoData } from '../../service/data/todo-data';
-import { HardcodedAuthentication } from '../../service/hardcoded-authentication';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { HardcodedAuthentication } from './../../../service/hardcoded-authentication';
+import { TodoData } from './../../../service/data/todo-data';
+import { Todo } from './../../../model/todo.model';
+import { Alert } from "../../../shared/alert/alert";
 
 @Component({
   selector: 'app-todo-item',
-  imports: [RouterLink,FormsModule,CommonModule],
+  imports: [FormsModule, CommonModule,Alert,RouterLink],
   templateUrl: './todo-item.html',
   styleUrl: './todo-item.css'
 })
@@ -78,7 +79,7 @@ export class TodoItem implements OnInit {
           this.todoService.addNewTodo(username,this.todo).subscribe({
               next: (response) => {
                 this.todo = response;
-                this.successMessage = 'Added successfully!'
+                this.successMessage = 'Added successfully!';
               },
               error: (error) => this.handleErrorResponse(error)
               // complete: () => console.log('Request to TodoService completed')
@@ -89,7 +90,7 @@ export class TodoItem implements OnInit {
             this.todoService.updateTodo(username,this.todo.id,this.todo).subscribe({
                 next: (response) => {
                   this.todo = response;
-                  this.successMessage = 'updated successfully!'
+                  this.successMessage = 'Updated successfully!';
                 },
                 error: (error) => this.handleErrorResponse(error)
                 // complete: () => console.log('Request to TodoService completed')

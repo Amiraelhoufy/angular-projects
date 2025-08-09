@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
-import { HardcodedAuthentication } from '../service/hardcoded-authentication';
+import { HardcodedAuthentication } from '../../service/hardcoded-authentication';
 import { CommonModule } from '@angular/common';
 
 @Component({

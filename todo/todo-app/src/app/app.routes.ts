@@ -1,9 +1,9 @@
 import { Routes } from '@angular/router';
-import { Login } from './login/login';
-import { Welcome } from './welcome/welcome';
-import { TodoList } from './todos/todo-list/todo-list';
+import { Login } from './components/login/login';
+import { Welcome } from './components/welcome/welcome';
 import { RouteGuard } from './service/route-guard';
-import { TodoItem } from './todos/todo-item/todo-item';
+import { TodoItem } from './components/todos/todo-item/todo-item';
+import { TodoList } from './components/todos/todo-list/todo-list';
 
 //Order is important 
 export const routes: Routes = [

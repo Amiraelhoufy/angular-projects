@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { HardcodedAuthentication } from '../service/hardcoded-authentication';
+import { HardcodedAuthentication } from '../../service/hardcoded-authentication';
 
 
 @Component({

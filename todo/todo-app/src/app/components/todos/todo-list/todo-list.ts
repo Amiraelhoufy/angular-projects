@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Todo } from '../../model/todo.model';
-import { TodoData } from '../../service/data/todo-data';
-import { HardcodedAuthentication } from '../../service/hardcoded-authentication';
 import { Router } from '@angular/router';
+import { HardcodedAuthentication } from './../../../service/hardcoded-authentication';
+import { TodoData } from './../../../service/data/todo-data';
+import { Todo } from './../../../model/todo.model';
 
 @Component({
   selector: 'app-todo-list',
