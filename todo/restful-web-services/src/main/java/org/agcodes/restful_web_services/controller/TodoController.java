@@ -20,7 +20,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @CrossOrigin(origins = "http://localhost:4200/")
 @RestController
-@RequestMapping("api/v1/")
+@RequestMapping("api/v1")
 public class TodoController {
 
   @Autowired
@@ -34,7 +34,7 @@ public class TodoController {
     return todoHardcodedService.findAll();
   }
 
-  @GetMapping("users/{username}/todos/{todoId}")
+  @GetMapping("/users/{username}/todos/{todoId}")
   public ResponseEntity<Todo> getTodo(@PathVariable String username, @PathVariable long todoId) {
     return todoHardcodedService.findById(todoId)
         .map(todo-> ResponseEntity.ok(todo)) // 200

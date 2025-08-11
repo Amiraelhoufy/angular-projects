@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { HardcodedAuthentication } from './../../../service/hardcoded-authentication';
+import { HardcodedAuthentication } from '../../../service/authentication/hardcoded-authentication.service';
 import { TodoData } from './../../../service/data/todo-data';
 import { Todo } from './../../../model/todo.model';
 import { Alert } from "../../../shared/alert/alert";

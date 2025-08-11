@@ -1,60 +1,75 @@
 <!-- <div class="container mt-5"> -->
-  <div class="page-wrapper d-flex flex-column min-vh-100 mt-5">
-   <div *ngIf="errorMessage" class="alert alert-danger"> {{ errorMessage }}</div>
-   <div *ngIf="successMessage" class="alert alert-success"> {{ successMessage }}</div>
-   <div class="d-flex justify-content-between align-items-center mb-3">
-     <h2 class="mb-0">Your Todos:</h2>
-     <button class="btn btn-success btn-success" (click)="addTodo()">
-        <i class="bi bi-plus-lg"></i> Add Todo
-      </button>
-   </div>
-   <div style="max-height: 350px; overflow-y: auto;">
-      <div class="container flex-grow-1">
+<div class="page-wrapper d-flex flex-column min-vh-100 mt-5">
+  @if(errorMessage){
+  <app-alert [type]="'danger'" [message]="errorMessage"> </app-alert>
+  } @if(successMessage){
+  <app-alert [type]="'success'" [message]="successMessage"> </app-alert>
+  }
 
-  <table class="table table-striped">
-    <thead class="table-dark">
-      <tr>
-        <!-- <th>ID</th> -->
-        <th>Description</th>
-        <th>Done</th>
-        <th>Target Date</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let todo of todos">
-        <!-- <td>{{ todo.id }}</td> -->
-        <td>{{ todo.description }}</td>
-        <td>{{ todo.done ? 'Yes' : 'No' }}</td>
-        <td>{{ todo.targetDate | date }}</td>
-        <td>
-          
-          <!-- <button class="btn btn-primary btn-sm" [routerLink]="['/todos', todo.id]">Update</button> -->
-          <!-- <button class="btn btn-primary btn-sm" (click)="openModal(todo)">Edit</button> -->
-          <button class="btn btn-primary btn-sm" (click)="updateTodo(todo.id)">Update</button>
-          <button class="btn btn-danger btn-sm" (click)="deleteTodo(todo.id)">Delete</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <!-- <div *ngIf="errorMessage" class="alert alert-danger"> {{ errorMessage }}</div>
+<div *ngIf="successMessage" class="alert alert-success"> {{ successMessage }}</div> -->
+
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 class="mb-0">Your Todos:</h2>
+    <button class="btn btn-success btn-success" (click)="addTodo()">
+      <i class="bi bi-plus-lg"></i> Add Todo
+    </button>
   </div>
-</div>
+  <div style="max-height: 350px; overflow-y: auto">
+    <div class="container flex-grow-1">
+      <table class="table table-striped">
+        <thead class="table-dark">
+          <tr>
+            <!-- <th>ID</th> -->
+            <th>Description</th>
+            <th>Done</th>
+            <th>Target Date</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let todo of todos">
+            <!-- <td>{{ todo.id }}</td> -->
+            <td>{{ todo.description }}</td>
+            <td>{{ todo.done ? "Yes" : "No" }}</td>
+            <td>{{ todo.targetDate | date }}</td>
+            <td>
+              <!-- <button class="btn btn-primary btn-sm" [routerLink]="['/todos', todo.id]">Update</button> -->
+              <!-- <button class="btn btn-primary btn-sm" (click)="openModal(todo)">Edit</button> -->
+              <button
+                class="btn btn-primary btn-sm"
+                (click)="updateTodo(todo.id)"
+              >
+                Update
+              </button>
+              <button
+                class="btn btn-danger btn-sm"
+                (click)="deleteTodo(todo.id)"
+              >
+                Delete
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 
-
-<!-- <table border="1">
+  <!-- <table border="1">
     <caption>My Todo's</caption>
     <thead> -->
-        <!-- <th>id</th> -->
-        <!-- <th>Description</th>
+  <!-- <th>id</th> -->
+  <!-- <th>Description</th>
         <th>Target Date</th>
         <th>is Completed?</th>
     </thead>
     <tbody>
         <tr *ngFor="let todo of todos" > -->
-           <!-- <td>{{ todo.id }}</td> -->
-           <!-- <td>{{ todo.description }}</td>
+  <!-- <td>{{ todo.id }}</td> -->
+  <!-- <td>{{ todo.description }}</td>
            <td>{{ todo.targetDate | date }}</td>
            <td>{{ todo.done }}</td>
         </tr>
     </tbody>
     </table> -->
+</div>

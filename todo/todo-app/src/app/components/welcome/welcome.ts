@@ -3,6 +3,7 @@ import { WelcomeData } from '../../service/data/welcome-data';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { TodoData } from '../../service/data/todo-data';
 
 @Component({
   selector: 'app-welcome',
@@ -18,8 +19,7 @@ export class Welcome {
   //ActivatedRoute
   constructor(
     private route: ActivatedRoute,
-    private welcomeData: WelcomeData
-  ) {}
+    private welcomeData: WelcomeData ) {}
 
   ngOnInit(): void {
     // this.route.paramMap.subscribe(params => {

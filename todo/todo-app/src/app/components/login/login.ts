@@ -2,7 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { HardcodedAuthentication } from '../../service/hardcoded-authentication';
+import { HardcodedAuthentication } from '../../service/authentication/hardcoded-authentication.service';
+import { BasicAuthenticationService } from '../../service/authentication/basic-auth.service';
 
 
 @Component({
@@ -13,9 +14,8 @@ import { HardcodedAuthentication } from '../../service/hardcoded-authentication'
 })
 export class Login {
 
-
-  username = 'test';
-  password = 'test';
+  username = '';
+  password = '';
   errorMessage = 'Invalid Credentials!';
   invalidLogin = false;
 
@@ -25,7 +25,9 @@ export class Login {
   //Dependency injection
   constructor(private router: Router,
     private activeRoute: ActivatedRoute,
-    private auth: HardcodedAuthentication) {
+    // private auth: HardcodedAuthentication
+    private auth: BasicAuthenticationService
+  ) {
 
   }
 
@@ -37,6 +39,29 @@ export class Login {
     });
   }
 
+  // Authentication through backend
+    handleBasicAuthLogin() {
+
+    this.invalidLogin = false;
+    this.logoutMessage = '';
+
+    const isAuthenticated = this.auth.authenticate(this.username, this.password)
+    .subscribe({
+        next: (response) => {
+          console.log(response);
+          this.invalidLogin = false;
+          this.router.navigate(['welcome', this.username]);
+        },
+        error: (error) => {
+          console.log(error); 
+          this.invalidLogin = true;
+        },
+        complete: () => console.log('Request to login completed'),
+      });
+
+  }
+
+  // Hardcoded Authentication
   handleLogin() {
     // console.log('username:' + this.username);
     // console.log('password:' + this.password);
@@ -45,7 +70,6 @@ export class Login {
     this.logoutMessage = '';
 
     const isAuthenticated = this.auth.authenticate(this.username, this.password);
-
     if (isAuthenticated) {
       // this.router.navigate(['welcome']);
       this.invalidLogin = false;

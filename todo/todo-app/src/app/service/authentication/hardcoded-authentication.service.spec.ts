@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { HardcodedAuthentication } from './hardcoded-authentication';
+import { HardcodedAuthentication } from './hardcoded-authentication.service';
 
 describe('HardcodedAuthentication', () => {
   let service: HardcodedAuthentication;

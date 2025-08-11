@@ -38,4 +38,6 @@ export class Alert implements OnInit {
   close(): void {
     this.visible = false;
   }
+
+
 }

@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { Login } from './components/login/login';
 import { Welcome } from './components/welcome/welcome';
-import { RouteGuard } from './service/route-guard';
+import { RouteGuard } from './service/route-guard/route-guard';
 import { TodoItem } from './components/todos/todo-item/todo-item';
 import { TodoList } from './components/todos/todo-list/todo-list';
 

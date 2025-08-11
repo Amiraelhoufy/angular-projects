@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { HardcodedAuthentication } from './../../../service/hardcoded-authentication';
+import { HardcodedAuthentication } from '../../../service/authentication/hardcoded-authentication.service';
 import { TodoData } from './../../../service/data/todo-data';
 import { Todo } from './../../../model/todo.model';
+import { Alert } from "../../../shared/alert/alert";
 
 @Component({
   selector: 'app-todo-list',
-  imports: [CommonModule],
+  imports: [CommonModule, Alert],
   templateUrl: './todo-list.html',
   styleUrl: './todo-list.css',
 })

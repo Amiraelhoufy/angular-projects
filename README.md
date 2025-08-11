@@ -260,15 +260,11 @@ A popular CSS framework for building responsive and modern UI layouts.
 
 A **Web Service** is a software system designed to support **1) interoperable**, **2)machine-to-machine** interaction over a **3)network** using platform-independent formats like XML or JSON.
 
----
-
 ## 🔁 What is a Web Service?
 
 - A **service delivered over the web**
 - Reuses functionality from another application via HTTP
 - Enables cross-platform communication (e.g., Java ↔ .NET)
-
----
 
 ## 1) Interoperability
 
@@ -277,20 +273,16 @@ A **Web Service** is a software system designed to support **1) interoperable**,
 ✅ **Yes**, if the communication uses **standard protocols** (HTTP) and **platform-independent formats** (XML, JSON).  
 ❌ **No**, if relying on language-specific binaries (e.g., `.jar` files or `.dll`), because those are platform/language dependent.
 
----
-
-## 📤 Data Exchange Between Apps
+## Data Exchange Between Apps
 
 Data flow pattern:
 ```
 App A <----Request/Response----> Web Service
 ```
-
 - Uses standard **HTTP methods** to interact
 - Data format: **JSON** or **XML**
 - Enables apps to work together regardless of their tech stack
 
----
 
 ## 2) Platform Independence
 
@@ -325,7 +317,7 @@ Yes — via the **Service Definition / API Documentation**, often using:
 
 ## 🧭 RESTful Web Services
 
-**REST**: Representational State Transfer  
+**REST**: (Representational State Transfer)  
 Uses HTTP effectively by mapping resources to URIs and actions to HTTP methods.
 
 ### 📄 HTTP Request Components
