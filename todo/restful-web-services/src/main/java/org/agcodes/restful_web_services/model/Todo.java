@@ -1,10 +1,21 @@
 package org.agcodes.restful_web_services.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import java.util.Date;
 import java.util.Objects;
+import lombok.Data;
 
+@Data
+@Entity
+@Table
 public class Todo {
-  private long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
   private String username;
   private String description;
@@ -14,7 +25,7 @@ public class Todo {
   protected Todo() {
   }
 
-  public Todo(long id, String username, String description, Date targetDate, boolean isDone) {
+  public Todo(Long id, String username, String description, Date targetDate, boolean isDone) {
     this.id = id;
     this.username = username;
     this.description = description;
@@ -22,11 +33,11 @@ public class Todo {
     this.isDone = isDone;
   }
 
-  public long getId() {
+  public Long getId() {
     return id;
   }
 
-  public void setId(long id) {
+  public void setId(Long id) {
     this.id = id;
   }
 
@@ -60,23 +71,6 @@ public class Todo {
 
   public void setDone(boolean done) {
     isDone = done;
-  }
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    Todo todo = (Todo) o;
-    return id == todo.id && isDone == todo.isDone && Objects.equals(username, todo.username)
-        && Objects.equals(description, todo.description) && Objects.equals(
-        targetDate, todo.targetDate);
-  }
-  @Override
-  public int hashCode() {
-    return Objects.hash(id, username, description, targetDate, isDone);
   }
 
 }

@@ -34,8 +34,18 @@ export class TodoData {
   }
 
   addNewTodo(username:string, todo:Todo){
-    return this.HttpClient.post<Todo>(`${environment.API_URL}${APIConstant.Todo.base}${APIConstant.Todo.addTodo(username)}`
-                              ,todo);
+ // remove id by destructuring - To prevent sending id to Hibernate as it'll cause an error
+//  By default, Hibernate decides whether to INSERT or UPDATE based on whether the entity’s id is null or has a value.
+// If id == null → Hibernate issues an INSERT.
+// If id != null → Hibernate assumes it’s an existing row → issues an UPDATE.
+// 
+// you’re passing a Todo with id = 0 from the client (probably in the JSON body). 
+// Hibernate then tries to update row id=0 → but it doesn’t exist → exception.
+
+  const { id, ...todoWithoutId } = todo;
+  return this.HttpClient.post<Todo>(`${environment.API_URL}${APIConstant.Todo.base}${APIConstant.Todo.addTodo(username)}`
+                              , todoWithoutId
+);
 
   }
   

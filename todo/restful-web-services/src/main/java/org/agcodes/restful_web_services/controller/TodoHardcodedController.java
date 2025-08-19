@@ -1,10 +1,10 @@
 package org.agcodes.restful_web_services.controller;
 
-
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 import org.agcodes.restful_web_services.model.Todo;
-import org.agcodes.restful_web_services.service.TodoService;
+import org.agcodes.restful_web_services.service.TodoHardcodedService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -18,33 +18,33 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-@CrossOrigin(origins = "http://localhost:4200/")
-@RestController
-@RequestMapping("api/v1")
-public class TodoController {
-  private final TodoService todoService;
+//@CrossOrigin(origins = "http://localhost:4200/")
+//@RestController
+//@RequestMapping("api/v1")
+public class TodoHardcodedController {
 
   @Autowired
-  public TodoController(TodoService todoService) {
-    this.todoService = todoService;
+  private final TodoHardcodedService todoHardcodedService;
+  public TodoHardcodedController(TodoHardcodedService todoHardcodedService) {
+    this.todoHardcodedService = todoHardcodedService;
   }
 
   @GetMapping("/users/{username}/todos")
   public List<Todo> getAllTodos(@PathVariable String username) {
-    return todoService.findByUsername(username);
-//    return todoService.findAll();
+    return todoHardcodedService.findAll();
   }
 
   @GetMapping("/users/{username}/todos/{todoId}")
   public ResponseEntity<Todo> getTodo(@PathVariable String username, @PathVariable long todoId) {
-    return todoService.findById(todoId)
+    return todoHardcodedService.findById(todoId)
         .map(todo-> ResponseEntity.ok(todo)) // 200
         .orElse(ResponseEntity.notFound().build()); // 404
   }
   @DeleteMapping("/users/{username}/todos/{todoId}")
   public ResponseEntity<Void> deleteTodo(@PathVariable String username, @PathVariable long todoId) {
-    boolean isDeleted = todoService.deleteById(todoId);
-    if(isDeleted){
+
+    Todo todo = todoHardcodedService.deleteById(todoId);
+    if(todo != null){
       return ResponseEntity.noContent().build();
     } else {
       return ResponseEntity.notFound().build();
@@ -56,13 +56,8 @@ public class TodoController {
       @PathVariable long todoId,
       @RequestBody Todo todo){
 
-    return todoService.findById(todoId) // check if exists
-        .map(existingTodo -> {
-          todo.setId(todoId);       // ensure correct id
-          todo.setUsername(username);
-          Todo updatedTodo = todoService.save(username, todo);
-          return ResponseEntity.ok(updatedTodo);
-        })
+    return todoHardcodedService.save(username,todo)
+        .map(updatedTodo -> ResponseEntity.ok(updatedTodo))
         .orElse(ResponseEntity.notFound().build());
   }
 
@@ -70,16 +65,18 @@ public class TodoController {
   public ResponseEntity<Todo> createTodo(@PathVariable String username,
       @RequestBody Todo todo){
 
-    System.out.println(todo.toString());
+    Optional<Todo> createdTodo = todoHardcodedService.save(username,todo);
+    return createdTodo
+        .map(savedTodo -> {
+          URI location = ServletUriComponentsBuilder
+              .fromCurrentRequest()
+              .path("/{id}")
+              .buildAndExpand(savedTodo.getId())
+              .toUri();
 
-    Todo createdTodo = todoService.save(username,todo);
-    URI location = ServletUriComponentsBuilder
-        .fromCurrentRequest()
-        .path("/{id}")
-        .buildAndExpand(createdTodo.getId())
-        .toUri();
-
-    return ResponseEntity.created(location).body(createdTodo); // 201 Created
+          return ResponseEntity.created(location).body(savedTodo); // 201
+        })
+        .orElse(ResponseEntity.notFound().build()); // 404
 
   }
 

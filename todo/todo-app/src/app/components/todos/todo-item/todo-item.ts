@@ -17,7 +17,7 @@ export class TodoItem implements OnInit {
 
   id !: number; // ! :  to tell TypeScript not to worry as it's assigned in ngOnInit()
   todo: Todo = {  // Dummy values to avoid async loading undefined object
-  id: 0,
+  id: -1,
   description: '',
   done: false,
   targetDate: new Date()
