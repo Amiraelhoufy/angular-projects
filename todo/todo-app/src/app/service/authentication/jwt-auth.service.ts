@@ -1,4 +1,4 @@
-import { catchError, map, Observable, tap, throwError } from 'rxjs';
+import { catchError, Observable, tap, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
@@ -8,7 +8,7 @@ import { AuthenticationBean } from '../../model/AuthenticationBean.model';
 @Injectable({
   providedIn: 'root'
 })
-export class BasicAuthenticationService {
+export class JwtAuthenticationService {
 
   constructor(private httpClient: HttpClient) {}
 
@@ -18,20 +18,26 @@ authenticate(username: string, password: string): Observable<AuthenticationBean>
 // Pass credentials inline just for this request. Once the backend confirms authentication, store them.
 // For all subsequent requests, the interceptor will handle it.
 
-  const headers = new HttpHeaders({
-      Authorization: 'Basic ' + btoa(`${username}:${password}`)
-    });
-    
+  const body = {
+    username: username,
+    password: password
+  };
+
   return this.httpClient
-    .get<AuthenticationBean>(
+    .post<any>(
       `${environment.API_URL}${APIConstant.Authentication.base}${APIConstant.Authentication.authenticate}`
-        ,{ headers }
+        ,body  // body if your backend expects it
+        ,{   headers: new HttpHeaders({ 'Content-Type': 'application/json' }) }
     )
     .pipe(
-      map(data => {
-          this.setCredentials(username, headers);
-          return data;
-        }),
+        tap(response => {
+      if (response.token) {
+        this.setCredentials(username, response.token);
+        console.log('JWT Token: ' + response.token);
+      } else {
+        throw new Error('No token received');
+      }
+    }),
     catchError(error => {
       // Handle error (todo: return an observable with user-friendly error)
       console.error('Authentication failed', error);
@@ -41,27 +47,21 @@ authenticate(username: string, password: string): Observable<AuthenticationBean>
 }
 
 
-  setCredentials(username: string,headers: HttpHeaders):void {
-    sessionStorage.setItem('authenticatedUser', username);
-    sessionStorage.setItem('token', headers.get('Authorization') || '');
+  setCredentials(username: string, token: string) {
+  sessionStorage.setItem('authenticatedUser', username);
+  sessionStorage.setItem('token',`Bearer ${token}`);
   }
 
-  
-  getAuthToken() {
-    if (this.getLoggedInUsername()) {
-      return sessionStorage.getItem('token');
-    }
-    return null;
-  }
 
   isUserLoggedIn(): boolean {
     return !(sessionStorage.getItem('authenticatedUser') === null);
 
   }
+
   
   clearCredentials() {
-    sessionStorage.removeItem('authenticatedUser');
     sessionStorage.removeItem('token');
+    sessionStorage.removeItem('authenticatedUser');
   }
   
   logout(): void {
@@ -70,6 +70,11 @@ authenticate(username: string, password: string): Observable<AuthenticationBean>
 
   getLoggedInUsername(): string | null{
     return this.isUserLoggedIn()? sessionStorage.getItem('authenticatedUser'): null;
+  }
+
+  
+  getAuthToken(): string | null{
+    return this.isUserLoggedIn()? sessionStorage.getItem('token'): null;
   }
 
 }

@@ -21,7 +21,11 @@ export class WelcomeData {
     // let header = new HttpHeaders({
     //   Authorization: basicAuthHeaderString,
     // });
-    return this.httpClient.get<HelloWorldResponse>(`${environment.API_URL}${APIConstant.Hello.bean}`);
+    return this.httpClient.get<HelloWorldResponse>(
+      `${environment.API_URL}${APIConstant.Hello.base}${APIConstant.Hello.bean}`,
+  { responseType: 'text' as 'json' }
+);
+
 
   }
 
@@ -48,14 +52,12 @@ export class WelcomeData {
     //   }
     // );
 
-    return this.httpClient.get(`${environment.API_URL}${APIConstant.Hello.pathParam(name)}`,{
-        responseType: 'text', // <-- important to specify this
-      }
+    return this.httpClient.get<string>(
+    `${environment.API_URL}${APIConstant.Hello.base}${APIConstant.Hello.pathParam(name)}`,
+    {
+      responseType: 'text' as 'json'
+    }
   );
-
-
-    
-
   }
 
   createBasicAuthenticationHttpHeader() {

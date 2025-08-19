@@ -3,7 +3,8 @@ import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
-import { basicAuthInterceptor } from './core/interceptors/basicAuthInterceptor.interceptor';
+// import { basicAuthInterceptor } from './core/interceptors/basicAuthInterceptor.interceptor';
+import { jwtAuthInterceptor } from './core/interceptors/jwtAuthInterceptor.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -11,6 +12,7 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideHttpClient(),
-     provideHttpClient(withInterceptors([basicAuthInterceptor]))
+    // provideHttpClient(withInterceptors([basicAuthInterceptor])),
+    provideHttpClient(withInterceptors([jwtAuthInterceptor]))
   ]
 };

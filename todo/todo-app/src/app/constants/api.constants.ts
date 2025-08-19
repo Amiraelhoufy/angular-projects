@@ -7,13 +7,14 @@ export const APIConstant = {
     updateTodo: (username: string, id: number)=> `/users/${username}/todos/${id}`,
     addTodo: (username: string) => `/users/${username}/todos`
   },
-  Authentication:{
+  Authentication:{ 
     base: 'api/v1/auth/basic',
-    authenticate: '/authenticate'
+    authenticate: '/authenticate',
+    refresh: '/refresh'
   },
   Hello:{
     base:'hello',
-    bean:'hello/bean',
-    pathParam:(name:string) => `/hello/path-variable/${name}`
+    bean:'/bean',
+    pathParam:(name:string) => `/path-variable/${name}`
   }
 };

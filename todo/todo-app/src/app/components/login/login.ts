@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HardcodedAuthentication } from '../../service/authentication/hardcoded-authentication.service';
 import { BasicAuthenticationService } from '../../service/authentication/basic-auth.service';
+import { JwtAuthenticationService } from '../../service/authentication/jwt-auth.service';
 
 
 @Component({
@@ -26,7 +27,8 @@ export class Login {
   constructor(private router: Router,
     private activeRoute: ActivatedRoute,
     // private auth: HardcodedAuthentication
-    private auth: BasicAuthenticationService
+    // private auth: BasicAuthenticationService
+    private auth: JwtAuthenticationService
   ) {
 
   }
@@ -39,8 +41,8 @@ export class Login {
     });
   }
 
-  // Authentication through backend
-    handleBasicAuthLogin() {
+  // Basic/JWT Authentication based on injected Service
+    handleAuthLogin() {
 
     this.invalidLogin = false;
     this.logoutMessage = '';
@@ -62,7 +64,7 @@ export class Login {
   }
 
   // Hardcoded Authentication
-  handleLogin() {
+  handleHardcodedLogin() {
     // console.log('username:' + this.username);
     // console.log('password:' + this.password);
     
@@ -71,7 +73,6 @@ export class Login {
 
     const isAuthenticated = this.auth.authenticate(this.username, this.password);
     if (isAuthenticated) {
-      // this.router.navigate(['welcome']);
       this.invalidLogin = false;
       this.router.navigate(['welcome', this.username]);
     } else {
